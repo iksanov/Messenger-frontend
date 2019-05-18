@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { signup } from './api'
+import './signForm.css'
 
 class SignUp extends Component {
 
@@ -20,17 +21,14 @@ class SignUp extends Component {
 
     handleLoginChange(event) {
         this.setState({ login: event.target.value });
-        console.log("SignUp -> handleLoginChange(): this.state.login = " + this.state.login);
     }
 
     handlePasswordChange(event) {
         this.setState({ password: event.target.value });
-        console.log("SignUp -> handlePasswordChange(): this.state.password = " + this.state.password);
     }
 
     handleNameChange(event) {
         this.setState({ name: event.target.value });
-        console.log("SignUp -> handleNameChange(): this.state.name = " + this.state.name);
     }
 
     handleSubmit(event) {
@@ -47,8 +45,8 @@ class SignUp extends Component {
     render() {
 
         return (
-            <form onSubmit={this.handleSubmit} className="login-form">
-                <h1>Sign up, please</h1>
+            <form onSubmit={this.handleSubmit} className="signForm">
+                <h3>Sign up, please</h3>
                 <label>
                     Login:
                     <input
@@ -59,6 +57,7 @@ class SignUp extends Component {
                         autoFocus
                       />
                 </label>
+                <br />
                 <label>
                     Password: 
                     <input
@@ -68,6 +67,7 @@ class SignUp extends Component {
                         required
                     />
                 </label>
+                <br />
                 <label>
                     Name: 
                     <input
@@ -77,9 +77,8 @@ class SignUp extends Component {
                         required
                     />
                 </label>
-                <label>
-                    <input type="submit" value='Sign up!'/>
-                </label>
+                <br />
+                <input type="submit" value='Sign up!'/>
             </form>
         );
 

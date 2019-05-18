@@ -15,7 +15,6 @@ class PostMessageForm extends Component {
 
     handleMessageChange(event) {
         this.setState({message: event.target.value});
-        console.log("PostMessageForm -> handleMessageChange(): this.state.message = " + this.state.message);
     }
 
     handleSubmit(event) {
@@ -33,7 +32,7 @@ class PostMessageForm extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <input type='text' onChange={this.handleMessageChange} required autoFocus/>
+                <input type='text' value={this.state.message} onChange={this.handleMessageChange} required autoFocus/>
                 <input type='submit' value='Send!'/>
             </form>
         );

@@ -9,7 +9,7 @@ class Message extends Component {
             name: ""
         };
 
-        // console.log("Message -> constructor(): state.name = " + this.state.name);
+        this.componentDidMount = this.componentDidMount.bind(this);
     };
 
     componentDidMount() {

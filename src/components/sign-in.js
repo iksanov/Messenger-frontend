@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { signin } from './api'
+import './signForm.css'
 
 class SignIn extends Component {
 
@@ -36,8 +37,8 @@ class SignIn extends Component {
     render() {
 
         return (
-            <form onSubmit={this.handleSubmit} className="login-form">
-                <h1>Sign in, please</h1>
+            <form onSubmit={this.handleSubmit} className="signForm">
+                <h3>Sign in, please</h3>
                 <label>
                     Login:
                     <input
@@ -48,6 +49,7 @@ class SignIn extends Component {
                         autoFocus
                       />
                 </label>
+                <br />
                 <label>
                     Password: 
                     <input
@@ -57,9 +59,8 @@ class SignIn extends Component {
                         required
                     />
                 </label>
-                <label>
-                    <input type="submit" value='Sign in!'/>
-                </label>
+                <br />
+                <input type="submit" value='Sign in!'/>
             </form>
         );
 

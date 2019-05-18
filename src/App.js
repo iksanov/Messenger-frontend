@@ -37,11 +37,16 @@ class App extends Component {
         console.log("App -> render() -> this.state.token " + this.state.token);
 
         return (
-            <div>
-                <div className="LogOutButton">
-                    <button onClick={this.logOut}> {"LogOut"} </button>
+            <div className="container">
+                <div className="header">
+                    <strong>Best chat ever</strong>
+                    <button className="LogOut" onClick={this.logOut}>
+                        LogOut
+                    </button>
                 </div>
-                <div>
+                <div class="navigation"></div>
+                <div class="sidebar"></div>
+                <div className="main">
                     {
                         this.state.token !== null ?
                             <Messenger token={this.state.token} /> :
@@ -54,12 +59,17 @@ class App extends Component {
                                         </div> :
                                         <div>
                                             <SignUp onTokenReceive={this.tokenReceiveHandler} />
-                                            <button onClick={() => {this.setState({hasAccount: true})}}> {"SignIn"} </button>
+                                            <button onClick={() => {this.setState({hasAccount: true})}}> {
+                                                <label>
+                                                    SignIn
+                                                </label>
+                                            } </button>
                                         </div>
                                 }
                             </div>
                     }
                 </div>
+                <div className="footer"></div>
             </div>
         )
     }
