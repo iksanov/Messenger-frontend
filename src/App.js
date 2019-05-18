@@ -9,10 +9,12 @@ class App extends Component {
         super(props);
         this.state = {
             token: localStorage.getItem('token'),
+            hasAccount: false
         };
 
         console.log("App -> constructor(): state.token = " + this.state.token);
         this.tokenReceiveHandler = this.tokenReceiveHandler.bind(this);
+        this.logOut = this.logOut.bind(this);
     }
 
     tokenReceiveHandler(token) {
@@ -23,13 +25,43 @@ class App extends Component {
         console.log("App -> tokenReceiveHandler(token) with token = " + token);
     }
 
+    logOut() {
+        localStorage.removeItem('token');
+        this.setState({
+            token: null,
+        });
+        console.log("App -> logOut()");
+    }
+
     render() {
-        let isSignedIn = (this.state.token !== null);
         console.log("App -> render() -> this.state.token " + this.state.token);
 
-        return isSignedIn ?
-                <Messenger token={this.state.token}/> :
-                <SignUp onTokenReceive={this.tokenReceiveHandler} />;
+        return (
+            <div>
+                <div className="LogOutButton">
+                    <button onClick={this.logOut}> {"LogOut"} </button>
+                </div>
+                <div>
+                    {
+                        this.state.token !== null ?
+                            <Messenger token={this.state.token} /> :
+                            <div>
+                                {
+                                    this.state.hasAccount ?
+                                        <div>
+                                            <SignIn onTokenReceive={this.tokenReceiveHandler} /> 
+                                            <button onClick={() => {this.setState({hasAccount: false})}}> {"SignUp"} </button>
+                                        </div> :
+                                        <div>
+                                            <SignUp onTokenReceive={this.tokenReceiveHandler} />
+                                            <button onClick={() => {this.setState({hasAccount: true})}}> {"SignIn"} </button>
+                                        </div>
+                                }
+                            </div>
+                    }
+                </div>
+            </div>
+        )
     }
 }
 
