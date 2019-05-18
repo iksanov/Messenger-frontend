@@ -1,65 +1,85 @@
 const api = 'http://messenger.westeurope.cloudapp.azure.com/';
 
-// export function postPublicMessage(token, content) {
-// 	let url = api + 'api/conversation';	
-	
-// 	let model = {
-// 		content
-// 	}
+export function postPublicMessage(token, content) {
+	let model = {
+		"content": content
+    }
+    console.log('postPublicMessage() -> model: ', model);
+    
+    let url = api + 'api/conversations/public/messages';
+    console.log('postPublicMessage() -> url: ', url);
 
-// 	return fetch(url, {
-// 		method: "POST",
-// 		headers: {
+	return fetch(url, {
+                        method: "POST",
+                        headers: {
+                            'Authorization': 'Bearer ' + token,
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(model)
+                    })
+            .then(response => {
+                if (response.status >= 200 && response.status <= 299) {
+                    console.log("postPublicMessage()->fetch(): response status is ok" );
+                    return response.json();
+                } else {
+                    console.log("postPublicMessage()->fetch(): response status is NOT ok" );
+                    console.log("postPublicMessage()->fetch(): response status = " + response.status );
+                }
+            })
+}
 
-// 			'AUTH':  "",
-// 			'content-type': 'application/json'
-// 		}
-// 	})
-// }
+export function getPublicMessages(token, from, count) {
+	let url = api + `api/conversations/public/messages?from=${from}&count=${count}`;
 
-// export function getPublicMessenges(from, count) {
-// 	let url = api + '/api/conversations/public/messeges?from=$(from)&count=$(count)';
-
-// 	return fetch(url).then(function (response){
-// 		if(response.status >= 200 && response.status <= 299)
-// 			return  response.json();
-// 		else
-// 			console.log('error'); 
-// 	});
-// }
+	return fetch(url, {
+                        method: "GET",
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        }
+                    })
+            .then(response => {
+                if (response.status >= 200 && response.status <= 299) {
+                    // console.log("getPublicMessages()->fetch(): response status is ok" );
+                    return response.json();
+                } else {
+                    console.log("getPublicMessages()->fetch(): response status is NOT ok" );
+                    console.log("getPublicMessages()->fetch(): response status = " + response.status );
+                }
+            })
+}
 
 
 
 export function signin(login, password) {
-	let model = {
+    let model = {
         "login": login,
-        "password": password,
-	}
-	console.log('signin() -> model: ', model);
+        "password": password
+    }
+    console.log('signin() -> model: ', model);
 
-	let url = api + 'api/authentication/signin';
-	console.log('signin() -> url: ', url);
+    let url = api + 'api/authentication/signin';
+    console.log('signin() -> url: ', url);
 
 
-	return fetch(url, {
-						method: 'POST', 
-						headers: { 'Content-Type': 'application/json' }, //T
-						body: JSON.stringify(model)
-					})
-			.then(response => {
-				if (response.status >= 200 && response.status <= 299) {
-					console.log("signin()->fetch(): response status is ok" );
-					return response.json();
-				}
-				else {
-					console.log("signin()->fetch(): response status is NOT ok" );
-					console.log("signin()->fetch(): response status = " + response.status );
-				}
-			})
-			.then(json => {
-				console.log('signin(): returning json = ' + json)
-				return json.token
-			});
+    return fetch(url, {
+                        method: 'POST', 
+                        headers: { 'Content-Type': 'application/json' }, //T
+                        body: JSON.stringify(model)
+                    })
+            .then(response => {
+                if (response.status >= 200 && response.status <= 299) {
+                    console.log("signin()->fetch(): response status is ok" );
+                    return response.json();
+                }
+                else {
+                    console.log("signin()->fetch(): response status is NOT ok" );
+                    console.log("signin()->fetch(): response status = " + response.status );
+                }
+            })
+            .then(json => {
+                console.log('signin(): returning json = ' + json)
+                return json.token
+            });
 }
 
 export function signup(login, password, name) {
@@ -67,30 +87,30 @@ export function signup(login, password, name) {
         "login": login,
         "password": password,
         "name": name,
-	};
-	
-	console.log('signup() -> model: ', model);
+    };
+    
+    console.log('signup() -> model: ', model);
 
     let url = api + 'api/authentication/signup';
 
     console.log('signup() -> url: ', url);
 
     return fetch(url, {
-						method: 'POST',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify(model),
-					})
-			.then(response => {
-				if (response.status >= 200 && response.status <= 299) {
-					console.log("signup()->fetch(): response status is ok" );
-					return response.json();
-				} else {
-					console.log("signup()->fetch(): response status is NOT ok" );
-					console.log("signup()->fetch(): response status = " + response.status );
-				}
-			})
-			.then(json => {
-				console.log('signup(): returning json.token = ' + json.token)
-				return json.token;
-    		});
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(model),
+                    })
+            .then(response => {
+                if (response.status >= 200 && response.status <= 299) {
+                    console.log("signup()->fetch(): response status is ok" );
+                    return response.json();
+                } else {
+                    console.log("signup()->fetch(): response status is NOT ok" );
+                    console.log("signup()->fetch(): response status = " + response.status );
+                }
+            })
+            .then(json => {
+                console.log('signup(): returning json.token = ' + json.token)
+                return json.token;
+            });
 }

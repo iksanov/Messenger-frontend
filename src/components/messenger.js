@@ -1,33 +1,16 @@
 import React, {Component} from 'react';
+import MessagesList from './messages-list'
+import PostMessageForm from './post-messageform'
 
-class PostMessageForm extends Component {
-
-	constuctor(props) {
-		this.state = {
-			value: ''
-		}
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);	
-	}
-
-	handleChange(event){
-		this.setState('')
-	}
-
-
-	handleSubmit(event){
-
-	}
-
-
-	render() {
-		return (
-			<form>
-				<input type='text'/>
-				<input type='submit'/>
-			</form>
-		);
-	}
+class Messenger extends Component {
+    render() {
+        return (
+            <div>
+                <section><MessagesList token={this.props.token}/></section>
+                <section><PostMessageForm token={this.props.token}/></section>
+            </div>
+        );
+    }
 }
 
-export default PostMessageForm;
+export default Messenger;

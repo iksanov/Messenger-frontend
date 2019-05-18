@@ -1,29 +1,43 @@
-// import React, {Component} from 'react';
-// import MessengesList from './'
+import React, {Component} from 'react';
+import { postPublicMessage } from './api'
 
-// class PostMessageForm extends Component {
+class PostMessageForm extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            message: ''
+        }
 
-// 	handleChange(event) {
-// 		this.setState({valur: event.target.value});
-// 	}
+        console.log("PostMessageForm -> constructor(): state.message = " + this.state.message);
+        this.handleMessageChange = this.handleMessageChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);	
+    }
 
-// 	handleSubmit(event) {
-// 		event.preventDefault();
+    handleMessageChange(event) {
+        this.setState({message: event.target.value});
+        console.log("PostMessageForm -> handleMessageChange(): this.state.message = " + this.state.message);
+    }
 
-// 		postPublicMessage(this.props.token, this.state.value).then(msg => {
-// 			this.setState({
-// 				value: ''
-// 			})
-// 		}
-// 	}	
+    handleSubmit(event) {
+        event.preventDefault();
+        console.log("PostMessageForm -> handleSubmit()");
 
-// 	render() {
-// 		return (
-// 			<div>
-// 				<section><MessagesList token={this.props.token}/></section>
-// 				<section> <PostMessageForm> </section>
+        postPublicMessage(this.props.token, this.state.message).then(msg => {
+            this.setState({
+                message: ''
+            })
+        })
+    }
 
-// 			</div>
-// 		);
-// 	}
-// }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <input type='text' onChange={this.handleMessageChange} required autoFocus/>
+                <input type='submit' value='Send!'/>
+            </form>
+        );
+    }
+}
+
+export default PostMessageForm;
