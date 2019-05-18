@@ -33,9 +33,7 @@ export function getPublicMessages(token, from, count) {
 
 	return fetch(url, {
                         method: "GET",
-                        headers: {
-                            'Authorization': 'Bearer ' + token
-                        }
+                        headers: { 'Authorization': 'Bearer ' + token }
                     })
             .then(response => {
                 if (response.status >= 200 && response.status <= 299) {
@@ -113,4 +111,28 @@ export function signup(login, password, name) {
                 console.log('signup(): returning json.token = ' + json.token)
                 return json.token;
             });
+}
+
+export function getUserInfo(userId) {
+    
+    let url = api + `api/users/${userId}`;
+
+    let token = localStorage.getItem("token");
+
+	return fetch(url, {
+                        method: "GET",
+                        headers:  {
+                            'Authorization': 'Bearer ' + token,
+                            'content-type': 'application/json'
+                        }
+                    })
+            .then(response => {
+                if (response.status >= 200 && response.status <= 299) {
+                    // console.log("getUserInfo()->fetch(): response status is ok" );
+                    return response.json();
+                } else {
+                    console.log("getUserInfo()->fetch(): response status is NOT ok" );
+                    console.log("getUserInfo()->fetch(): response status = " + response.status );
+                }
+            })
 }

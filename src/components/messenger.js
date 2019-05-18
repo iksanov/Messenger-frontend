@@ -4,6 +4,7 @@ import PostMessageForm from './post-messageform'
 
 class Messenger extends Component {
     render() {
+        console.log("Messenger -> render()");
         return (
             <div>
                 <section><MessagesList token={this.props.token}/></section>
