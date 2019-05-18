@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { getUserInfo } from './api'
+import './message.css'
 
 class Message extends Component {
 
@@ -21,9 +22,9 @@ class Message extends Component {
         // console.log("Message -> render()");
         return (
             <div>
-                <div> {this.state.name} </div>
+                <div className="senderName"> <strong>{this.state.name}</strong> </div>
                 <div> {this.props.text} </div>
-                <div> {this.props.time} </div>
+                <div className="date"> {this.props.time} </div>
             </div>
         );
     }
